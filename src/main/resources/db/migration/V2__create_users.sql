@@ -1,0 +1,7 @@
+SET AUTOCOMMIT TRUE;
+
+INSERT INTO USER (user_name, password, salt, roles) values ('admin', '2fbffaabc4063f43de4d81ac0c512043c62895afcd147b99d77e68e9a51a9ce4', 481486397342615386, 'ADMIN,USER');
+
+INSERT INTO USER (user_name, password, salt, roles) values ('user', '1f05d0b79518f60caa5f68547b188ae09586699df9ac3b71a49b61756cb2563c', 7237291199533735258, 'USER');
+
+SET AUTOCOMMIT FALSE;
