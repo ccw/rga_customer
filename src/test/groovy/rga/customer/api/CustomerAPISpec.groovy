@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestTemplate
 import rga.customer.api.domain.Customer
+import rga.customer.api.listener.CustomerEventHandler
 import spock.lang.FailsWith
 import spock.lang.Shared
 import spock.lang.Specification
@@ -31,7 +32,6 @@ class CustomerAPISpec extends Specification {
     def setupSpec() {
         httpHeaders = new HttpHeaders()
         def encoded = new String(Base64.encoder.encode('user:user'.getBytes()))
-        print(encoded)
         httpHeaders.set('Authorization', "Basic ${encoded}")
 
         restTemplate = new RestTemplate()

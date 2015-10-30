@@ -2,6 +2,7 @@ package rga.customer.api.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -28,8 +29,13 @@ public class Customer {
     @Column(name = "last_name")
     private final String lastName;
 
+    @Setter
+    @Column(name = "user_id")
+    private Long userId;
+
     Customer() {
         this.firstName = null;
         this.lastName = null;
+        this.userId = null;
     }
 }

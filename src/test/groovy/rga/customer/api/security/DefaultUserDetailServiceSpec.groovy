@@ -29,8 +29,8 @@ class DefaultUserDetailServiceSpec extends Specification {
 
         where:
         userName | password    | salt | roles        | userDetail
-        'user1'  | 'password1' | 1    | 'ADMIN,USER' | new AuthUser('user1', 'password1', 1, AuthorityUtils.createAuthorityList('ROLE_ADMIN', 'ROLE_USER'))
-        'user2'  | 'password2' | 2    | 'ADMIN'      | new AuthUser('user2', 'password2', 2, AuthorityUtils.createAuthorityList('ROLE_ADMIN'))
+        'user1'  | 'password1' | 1    | 'ADMIN,USER' | new AuthUser(1, 'user1', 'password1', 1, AuthorityUtils.createAuthorityList('ROLE_ADMIN', 'ROLE_USER'))
+        'user2'  | 'password2' | 2    | 'ADMIN'      | new AuthUser(2, 'user2', 'password2', 2, AuthorityUtils.createAuthorityList('ROLE_ADMIN'))
     }
 
     @FailsWith(UsernameNotFoundException)

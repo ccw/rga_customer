@@ -3,6 +3,8 @@ package rga.customer.api.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import rga.customer.api.domain.User;
 
 import java.util.Optional;

@@ -6,6 +6,7 @@ buildscript {
         spockVersion = '1.0-groovy-2.4'
         lombokVersion = '1.16.4'
         flywayVersion = '3.2.1'
+        halVersion = '2.4.0.RELEASE'
     }
     repositories {
         mavenCentral()

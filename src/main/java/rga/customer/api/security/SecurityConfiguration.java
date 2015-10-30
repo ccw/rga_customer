@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().authorizeRequests()
-                        .antMatchers("/customer").hasRole("USER").and()
+                        .antMatchers("/user", "/customer").hasRole("USER").and()
                         .csrf().disable();
         http.headers().addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsMode.SAMEORIGIN));
     }

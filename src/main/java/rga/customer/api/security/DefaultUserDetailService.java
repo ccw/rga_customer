@@ -25,7 +25,7 @@ public class DefaultUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final User user = userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException(username));
-        return new AuthUser(user.getUserName(), user.getPassword(), user.getSalt(),
+        return new AuthUser(user.getId(), user.getUserName(), user.getPassword(), user.getSalt(),
                             AuthorityUtils.createAuthorityList(this.resolveRoles(user.getRoles())));
     }
 

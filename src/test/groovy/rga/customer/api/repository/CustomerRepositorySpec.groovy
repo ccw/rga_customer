@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.ContextConfiguration
 import rga.customer.api.App
 import rga.customer.api.domain.Customer
+import rga.customer.api.listener.CustomerEventHandler
+import rga.customer.api.security.AuthUser
 import spock.lang.FailsWith
 import spock.lang.Specification
 
@@ -19,21 +22,24 @@ class CustomerRepositorySpec extends Specification {
     CustomerRepository customerRepository
 
     def auth() {
-        SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken('user', 'user',
-                        AuthorityUtils.createAuthorityList('ROLE_USER')));
+        final UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken('user', 'user', AuthorityUtils.createAuthorityList('ROLE_USER'));
+        token.details = new AuthUser(2, 'user', 'user', 1, token.authorities)
+        SecurityContextHolder.getContext().setAuthentication(token);
     }
 
     def "existent customer should be found"() {
         setup:
         auth()
-        Customer customer = customerRepository.save(new Customer(first, last))
+        final Customer customer = new Customer(first, last)
+        customer.setUserId(2)
+        final Customer saved = customerRepository.save(customer)
 
         expect:
-        assert customerRepository.findOne(customer.getId()) == customer
+        assert customerRepository.findOne(customer.getId()) == saved
 
         cleanup:
-        customerRepository.delete(customer)
+        customerRepository.delete(saved)
 
         where:
         first    | last
